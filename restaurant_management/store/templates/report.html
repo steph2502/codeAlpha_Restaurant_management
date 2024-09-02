@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container mt-4">
+        <h1>Report</h1>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                Total Revenue
+            </div>
+            <div class="card-body">
+                <p>Total Revenue: ${{ total_revenue|floatformat:2 }}</p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                Total Orders
+            </div>
+            <div class="card-body">
+                <p>Total Orders: {{ total_orders }}</p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                Average Order Value
+            </div>
+            <div class="card-body">
+                <p>Average Order Value: ${{ avg_order_value|floatformat:2 }}</p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                Most Popular Items
+            </div>
+            <div class="card-body">
+                <ul>
+                    {% for item in popular_items %}
+                        <li>{{ item.menu_item__name }}: {{ item.total_sold }} sold</li>
+                    {% empty %}
+                        <li>No data available</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                Least Popular Items
+            </div>
+            <div class="card-body">
+                <ul>
+                    {% for item in least_popular_items %}
+                        <li>{{ item.menu_item__name }}: {{ item.total_sold }} sold</li>
+                    {% empty %}
+                        <li>No data available</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                Low Stock Items
+            </div>
+            <div class="card-body">
+                <ul>
+                    {% for item in low_stock_items %}
+                        <li>{{ item.name }}: {{ item.inventory }} in stock</li>
+                    {% empty %}
+                        <li>No low stock items</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                Revenue Per Month
+            </div>
+            <div class="card-body">
+                <ul>
+                    {% for month_data in revenue_per_month %}
+                        <li>{{ month_data.month|date:"F Y" }}: ${{ month_data.total_revenue|floatformat:2 }}</li>
+                    {% empty %}
+                        <li>No revenue data available</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
